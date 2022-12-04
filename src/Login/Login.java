@@ -392,7 +392,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_SigninMouseExited
 
     private void jButton_SigninActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SigninActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton_SigninActionPerformed
 
     private void jButton_RegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_RegisterMouseClicked
@@ -415,9 +415,8 @@ public class Login extends javax.swing.JFrame {
         // get the username & password
         String username = jTextField_UserName.getText();
         String password = String.valueOf(jPasswordField.getPassword());
-        
         // create a select query to check if the username and the password exist in the database
-        String query = "SELECT * FROM `users` where `username` = ? AND `password` = ?"; 
+        String query = "SELECT * FROM Users where Username = ? AND Password = ?"; 
         try {
             st = MyCNX.getConnection().prepareStatement(query);
             
@@ -439,8 +438,7 @@ public class Login extends javax.swing.JFrame {
             }
         }
         catch(SQLException ex){
-            // error catch thinks later
-            //Logger.getLogger(Login.class.getName()).log(Level.SEVERE,null,ex);
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton_SigninMouseClicked
 

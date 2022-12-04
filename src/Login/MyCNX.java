@@ -1,40 +1,35 @@
 package Login;
-import java.lang.System.Logger;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.*;
+
+import java.sql.*;
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author Admin
  */
 public class MyCNX {
-    // get database
-    private String servername = "localhost";
-    private String username = "";
-    private String dbname = "";
-    private Integer portnumber = 3306;
-    private String password = "";
-    
-    public static Connection getConnection(){
-        Connection cnx = null;
-        MysqlDataSource dataSource = new MysqlDataSource();
-        
-        dataSource.setServerName(servername);
-        dataSource.setUser(username);
-        dataSource.setPassword(password);
-        dataSource.setDescription(dbname);
-        dataSource.setPortNumber(portnumber);
-        
+
+    private static String url = "jdbc:sqlserver://LAPTOP-473DJ6NK\\SQLEXPRESS;"
+            + "databaseName=taxcal;"
+            + "integratedSecurity=true;"
+            + "encrypt=true;"
+            + "trustServerCertificate=true";
+    private static String username = "duyvu285";
+    private static String password = "123456";
+    Connection conn = null;
+
+    public static Connection getConnection() {
         try {
-            cnx = dataSource.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace(System.err);
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection conn = DriverManager.getConnection(url, username, password);
+            return conn;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            return null;
         }
-        return cnx;
     }
 }
