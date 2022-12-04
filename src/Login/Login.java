@@ -66,7 +66,6 @@ public class Login extends javax.swing.JFrame {
         jPanel_Login.setPreferredSize(new java.awt.Dimension(700, 400));
 
         jTextField_UserName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField_UserName.setForeground(new java.awt.Color(153, 153, 153));
         jTextField_UserName.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jTextField_UserName.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -426,7 +425,7 @@ public class Login extends javax.swing.JFrame {
             
             if(rs.next()){
                 //show a new form
-                Menu_Form_User form = new Menu_Form_User();
+                Menu_Form_User form = new Menu_Form_User(username);
                 form.setVisible(true);
                 form.pack();
                 form.setLocationRelativeTo(null);

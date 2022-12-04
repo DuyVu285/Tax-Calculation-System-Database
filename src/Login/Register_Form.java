@@ -372,8 +372,7 @@ public class Register_Form extends javax.swing.JFrame {
         String fname = jTextField_Fullname.getText();
         String uname = jTextField_Username.getText();
         String phone = jTextField_Phone.getText();
-        String pass1 = String.valueOf(jPasswordField_Password.getPassword());
-        String pass2 = String.valueOf(jPasswordField_Confirm.getPassword());
+        String pass = String.valueOf(jPasswordField_Password.getPassword());
         String address = jTextField_Address.getText();
         String email = jTextField_Email.getText();
 
@@ -382,16 +381,15 @@ public class Register_Form extends javax.swing.JFrame {
                 PreparedStatement ps;
                 ResultSet rs;
                 // Insert query here
-                String registerUserQuery = "";
+                String registerUserQuery = "Insert into Users(Username,Fullname,Password,Phone,Address,Email) values (?,?,?,?,?,?)";
                 try {
                     ps = MyCNX.getConnection().prepareStatement(registerUserQuery);
-                    ps.setString(1, fname);
-                    ps.setString(2, uname);
+                    ps.setString(1, uname);
+                    ps.setString(2, fname);
                     ps.setString(3, phone);
-                    ps.setString(4, pass1);
-                    ps.setString(5, pass2);
-                    ps.setString(6, address);
-                    ps.setString(7, email);
+                    ps.setString(4, pass);
+                    ps.setString(5, address);
+                    ps.setString(6, email);
 
                     if (ps.executeUpdate() != 0) {
                         JOptionPane.showMessageDialog(null, "Your Account Has Been Created");
@@ -502,7 +500,7 @@ public class Register_Form extends javax.swing.JFrame {
         ResultSet rs;
         boolean username_exist = false;
 
-        String query = "SELECT * FROM `users` WHERE `username` = ?";
+        String query = "SELECT * FROM Users WHERE Username = ?";
         try {
             st = MyCNX.getConnection().prepareStatement(query);
             st.setString(1, username);

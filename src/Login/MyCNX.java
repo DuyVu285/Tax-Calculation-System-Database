@@ -20,7 +20,7 @@ public class MyCNX {
             + "trustServerCertificate=true";
     private static String username = "duyvu285";
     private static String password = "123456";
-    Connection conn = null;
+    private Connection conn = null;
 
     public static Connection getConnection() {
         try {

@@ -4,24 +4,83 @@
  */
 package Menu;
 
+import Login.MyCNX;
+import java.sql.*;
+
 /**
  *
  * @author Admin
  */
 public class Menu_Form_User extends javax.swing.JFrame {
-    private int UserID;
+    public String Username;
+    public String Fullname;
+    public String Phone;
+    public String Email;
+    public String Address;
 
     /**
      * Creates new form Menu_Form
      */
-    public Menu_Form_User() {
+    public Menu_Form_User(String Username) {
         initComponents();
-    }
-    
-    public void setUserID(int userID){
-        this.UserID = userID;
+        this.Username = Username;
+        jTextField_Username.setText(Username);
+        jTextField_Username.setEditable(false);
+        getDataFromDatabase();
     }
 
+    private void getDataFromDatabase(){
+        //Get the Data from each query
+        PreparedStatement ps;
+        ResultSet rs;
+        try {
+            String query_Fullname = "select Fullname from Users where Username =?";
+            String query_Phone = "select Phone from Users where Username =?";
+            String query_Email = "select Fullname from Users where Username =?";
+            String query_Address = "select Fullname from Users where Username =?";
+            ps = MyCNX.getConnection().prepareStatement(query_Fullname);
+            ps.setString(1, Username);
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                Fullname = rs.getString(1);
+            }
+            
+            ps = MyCNX.getConnection().prepareStatement(query_Phone);
+            ps.setString(1, Username);
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                Phone = rs.getString(1);
+            }
+            
+            ps = MyCNX.getConnection().prepareStatement(query_Email);
+            ps.setString(1, Username);
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                Email = rs.getString(1);
+            }
+            
+            ps = MyCNX.getConnection().prepareStatement(query_Address);
+            ps.setString(1, Username);
+            rs = ps.executeQuery();
+            
+            if(rs.next()){
+                Address = rs.getString(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        jTextField_Fullname.setText(Fullname);
+        jTextField_Fullname.setEditable(false);
+        jTextField_Phone.setText(Phone);
+        jTextField_Phone.setEditable(false);
+        jTextField_Email.setText(Email);
+        jTextField_Email.setEditable(false);
+        jTextField_Address.setText(Address);
+        jTextField_Address.setEditable(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,11 +197,9 @@ public class Menu_Form_User extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel_UserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_UserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel_UserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel_UserName, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                         .addComponent(jLabel_Address, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel_UserInfoLayout.createSequentialGroup()
-                            .addComponent(jLabel_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel_Fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel_UserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel_UserInfoLayout.createSequentialGroup()
@@ -171,19 +228,18 @@ public class Menu_Form_User extends javax.swing.JFrame {
             .addGroup(jPanel_UserInfoLayout.createSequentialGroup()
                 .addGroup(jPanel_UserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_UserName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel_UserInfoLayout.createSequentialGroup()
-                        .addGroup(jPanel_UserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField_Username, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel_Phone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(jPanel_UserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField_Username, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel_Phone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel_UserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField_Fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel_Fullname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel_UserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel_UserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField_Job, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel_Job, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel_Job, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel_UserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jTextField_Fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel_Fullname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_UserInfoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField_Email, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE)
