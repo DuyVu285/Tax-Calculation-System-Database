@@ -18,7 +18,7 @@ import javax.swing.border.Border;
  * @author Admin
  */
 public class Login extends javax.swing.JFrame {
-
+    public String Username;
     /**
      * Creates new form Login
      */
@@ -32,6 +32,11 @@ public class Login extends javax.swing.JFrame {
         Border label_border = BorderFactory.createMatteBorder(1, 1, 1, 1, Color.white);
         jLabel_minimize.setBorder(label_border);
         jLabel_close.setBorder(label_border);     
+    }
+    
+    public String getUsername()
+    {
+        return Username;
     }
 
     /**
@@ -227,7 +232,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel_Title.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
+        jLabel_Title.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
         jLabel_Title.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_Title.setText("Login Form");
@@ -414,6 +419,7 @@ public class Login extends javax.swing.JFrame {
         // get the username & password
         String username = jTextField_UserName.getText();
         String password = String.valueOf(jPasswordField.getPassword());
+        Username = username;
         // create a select query to check if the username and the password exist in the database
         String query = "SELECT * FROM Users where Username = ? AND Password = ?"; 
         try {
@@ -425,10 +431,13 @@ public class Login extends javax.swing.JFrame {
             
             if(rs.next()){
                 //show a new form
-                Menu_Form_User form = new Menu_Form_User(username);
+                Menu_Form_User form = new Menu_Form_User();
                 form.setVisible(true);
                 form.pack();
                 form.setLocationRelativeTo(null);
+                form.setUsername(username);
+                form.getUserProfileFromDatabase(username);
+                form.getUserSalaryFromDatabase();
                 // close the current form(login form)
                 this.dispose();
             }else{

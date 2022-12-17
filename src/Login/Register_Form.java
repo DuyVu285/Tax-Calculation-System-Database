@@ -68,7 +68,7 @@ public class Register_Form extends javax.swing.JFrame {
         jPanel_RegisterLabel.setBackground(new java.awt.Color(248, 148, 6));
         jPanel_RegisterLabel.setPreferredSize(new java.awt.Dimension(737, 632));
 
-        jLabel_RegisterTitle.setFont(new java.awt.Font("Times New Roman", 0, 48)); // NOI18N
+        jLabel_RegisterTitle.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
         jLabel_RegisterTitle.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_RegisterTitle.setText("Register Form");
 
