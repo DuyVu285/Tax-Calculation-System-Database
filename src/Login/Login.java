@@ -97,11 +97,6 @@ public class Login extends javax.swing.JFrame {
                 jPasswordFieldFocusLost(evt);
             }
         });
-        jPasswordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordFieldActionPerformed(evt);
-            }
-        });
 
         jButton_Register.setBackground(new java.awt.Color(0, 84, 140));
         jButton_Register.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
@@ -441,10 +436,6 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setState(JFrame.ICONIFIED);
     }//GEN-LAST:event_jLabel_minimizeMouseClicked
-
-    private void jPasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordFieldActionPerformed
 
     /**
      * @param args the command line arguments

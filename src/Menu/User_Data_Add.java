@@ -195,11 +195,6 @@ public class User_Data_Add extends javax.swing.JFrame {
                 jButton_AddMouseClicked(evt);
             }
         });
-        jButton_Add.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_AddActionPerformed(evt);
-            }
-        });
 
         jButton_Cancel.setBackground(new java.awt.Color(0, 84, 140));
         jButton_Cancel.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
@@ -300,10 +295,6 @@ public class User_Data_Add extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton_AddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AddActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_AddActionPerformed
 
     private void jButton_CancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CancelMouseClicked
         // TODO add your handling code here:

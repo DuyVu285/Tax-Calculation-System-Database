@@ -119,19 +119,9 @@ public class Register_Form extends javax.swing.JFrame {
 
         jPasswordField_Password.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPasswordField_Password.setPreferredSize(new java.awt.Dimension(86, 25));
-        jPasswordField_Password.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField_PasswordActionPerformed(evt);
-            }
-        });
 
         jPasswordField_Confirm.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPasswordField_Confirm.setPreferredSize(new java.awt.Dimension(86, 25));
-        jPasswordField_Confirm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField_ConfirmActionPerformed(evt);
-            }
-        });
 
         jTextField_Job.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextField_Job.setMinimumSize(new java.awt.Dimension(86, 25));
@@ -140,11 +130,6 @@ public class Register_Form extends javax.swing.JFrame {
         jTextField_Phone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextField_Phone.setMinimumSize(new java.awt.Dimension(86, 25));
         jTextField_Phone.setPreferredSize(new java.awt.Dimension(86, 25));
-        jTextField_Phone.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField_PhoneKeyTyped(evt);
-            }
-        });
 
         jTextField_Email.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jTextField_Email.setMinimumSize(new java.awt.Dimension(86, 25));
@@ -187,11 +172,6 @@ public class Register_Form extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 jButton_CancelMouseExited(evt);
-            }
-        });
-        jButton_Cancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_CancelActionPerformed(evt);
             }
         });
 
@@ -371,14 +351,6 @@ public class Register_Form extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField_ConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField_ConfirmActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField_ConfirmActionPerformed
-
-    private void jPasswordField_PasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField_PasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField_PasswordActionPerformed
-
     private void jButton_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RegisterActionPerformed
         // TODO add your handling code here:
         String fname = jTextField_Fullname.getText();
@@ -392,7 +364,6 @@ public class Register_Form extends javax.swing.JFrame {
         if (verifyFields()) {
             if (!checkUsername(uname)) {
                 PreparedStatement ps;
-                ResultSet rs;
                 // Insert query here
                 String registerUserQuery = "Insert into Users(Username,Fullname,Password,Job,Phone,Address,Email,Role) values (?,?,?,?,?,?,?,?)";
                 try {
@@ -440,10 +411,6 @@ public class Register_Form extends javax.swing.JFrame {
         jButton_Cancel.setBackground(new Color(0, 84, 140));
     }//GEN-LAST:event_jButton_CancelMouseExited
 
-    private void jButton_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_CancelActionPerformed
-
     private void jLabel_minimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_minimizeMouseClicked
         // TODO add your handling code here:
         this.setState(JFrame.ICONIFIED);
@@ -486,10 +453,6 @@ public class Register_Form extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton_CancelMouseClicked
-
-    private void jTextField_PhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_PhoneKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_PhoneKeyTyped
     // create a function to check every empty fields
     public boolean verifyFields() {
         String fname = jTextField_Fullname.getText();

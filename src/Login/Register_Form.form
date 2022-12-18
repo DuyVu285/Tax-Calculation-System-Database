@@ -349,9 +349,6 @@
                   <Dimension value="[86, 25]"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPasswordField_PasswordActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="jPasswordField_Confirm">
               <Properties>
@@ -362,9 +359,6 @@
                   <Dimension value="[86, 25]"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPasswordField_ConfirmActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField_Job">
               <Properties>
@@ -391,9 +385,6 @@
                   <Dimension value="[86, 25]"/>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField_PhoneKeyTyped"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField_Email">
               <Properties>
@@ -463,7 +454,6 @@
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton_CancelMouseClicked"/>
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton_CancelMouseEntered"/>
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton_CancelMouseExited"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_CancelActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
