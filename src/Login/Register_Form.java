@@ -45,19 +45,21 @@ public class Register_Form extends javax.swing.JFrame {
         jLabel_RegisterTitle = new javax.swing.JLabel();
         jPanel_RegisterForm = new javax.swing.JPanel();
         jLabel_Fullname = new javax.swing.JLabel();
-        jTextField_Fullname = new javax.swing.JTextField();
-        jTextField_Username = new javax.swing.JTextField();
         jLabel_Username = new javax.swing.JLabel();
         jLabel_Password = new javax.swing.JLabel();
         jLabel_ConfirmPassword = new javax.swing.JLabel();
-        jTextField_Phone = new javax.swing.JTextField();
+        jLabel_Job = new javax.swing.JLabel();
         jLabel_Phone = new javax.swing.JLabel();
-        jTextField_Address = new javax.swing.JTextField();
-        jLabel_Address = new javax.swing.JLabel();
-        jTextField_Email = new javax.swing.JTextField();
         jLabel_Email = new javax.swing.JLabel();
+        jLabel_Address = new javax.swing.JLabel();
+        jTextField_Fullname = new javax.swing.JTextField();
+        jTextField_Username = new javax.swing.JTextField();
         jPasswordField_Password = new javax.swing.JPasswordField();
         jPasswordField_Confirm = new javax.swing.JPasswordField();
+        jTextField_Job = new javax.swing.JTextField();
+        jTextField_Phone = new javax.swing.JTextField();
+        jTextField_Email = new javax.swing.JTextField();
+        jTextField_Address = new javax.swing.JTextField();
         jButton_Register = new javax.swing.JButton();
         jButton_Cancel = new javax.swing.JButton();
         jLabel_minimize = new javax.swing.JLabel();
@@ -79,14 +81,6 @@ public class Register_Form extends javax.swing.JFrame {
         jLabel_Fullname.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Fullname.setText("Full Name:");
 
-        jTextField_Fullname.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField_Fullname.setMinimumSize(new java.awt.Dimension(86, 25));
-        jTextField_Fullname.setPreferredSize(new java.awt.Dimension(86, 25));
-
-        jTextField_Username.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField_Username.setMinimumSize(new java.awt.Dimension(86, 25));
-        jTextField_Username.setPreferredSize(new java.awt.Dimension(86, 25));
-
         jLabel_Username.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel_Username.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Username.setText("UserName:");
@@ -99,34 +93,29 @@ public class Register_Form extends javax.swing.JFrame {
         jLabel_ConfirmPassword.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_ConfirmPassword.setText("ConfirmPassword:");
 
-        jTextField_Phone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField_Phone.setMinimumSize(new java.awt.Dimension(86, 25));
-        jTextField_Phone.setPreferredSize(new java.awt.Dimension(86, 25));
-        jTextField_Phone.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField_PhoneKeyTyped(evt);
-            }
-        });
+        jLabel_Job.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_Job.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_Job.setText("Job:");
 
         jLabel_Phone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel_Phone.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Phone.setText("Phone:");
 
-        jTextField_Address.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField_Address.setMinimumSize(new java.awt.Dimension(86, 25));
-        jTextField_Address.setPreferredSize(new java.awt.Dimension(86, 25));
+        jLabel_Email.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_Email.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_Email.setText("Email:");
 
         jLabel_Address.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel_Address.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Address.setText("Address:");
 
-        jTextField_Email.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField_Email.setMinimumSize(new java.awt.Dimension(86, 25));
-        jTextField_Email.setPreferredSize(new java.awt.Dimension(86, 25));
+        jTextField_Fullname.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField_Fullname.setMinimumSize(new java.awt.Dimension(86, 25));
+        jTextField_Fullname.setPreferredSize(new java.awt.Dimension(86, 25));
 
-        jLabel_Email.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel_Email.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_Email.setText("Email:");
+        jTextField_Username.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField_Username.setMinimumSize(new java.awt.Dimension(86, 25));
+        jTextField_Username.setPreferredSize(new java.awt.Dimension(86, 25));
 
         jPasswordField_Password.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jPasswordField_Password.setPreferredSize(new java.awt.Dimension(86, 25));
@@ -143,6 +132,27 @@ public class Register_Form extends javax.swing.JFrame {
                 jPasswordField_ConfirmActionPerformed(evt);
             }
         });
+
+        jTextField_Job.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField_Job.setMinimumSize(new java.awt.Dimension(86, 25));
+        jTextField_Job.setPreferredSize(new java.awt.Dimension(86, 25));
+
+        jTextField_Phone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField_Phone.setMinimumSize(new java.awt.Dimension(86, 25));
+        jTextField_Phone.setPreferredSize(new java.awt.Dimension(86, 25));
+        jTextField_Phone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField_PhoneKeyTyped(evt);
+            }
+        });
+
+        jTextField_Email.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField_Email.setMinimumSize(new java.awt.Dimension(86, 25));
+        jTextField_Email.setPreferredSize(new java.awt.Dimension(86, 25));
+
+        jTextField_Address.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField_Address.setMinimumSize(new java.awt.Dimension(86, 25));
+        jTextField_Address.setPreferredSize(new java.awt.Dimension(86, 25));
 
         jButton_Register.setBackground(new java.awt.Color(0, 84, 140));
         jButton_Register.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
@@ -210,19 +220,15 @@ public class Register_Form extends javax.swing.JFrame {
                             .addComponent(jTextField_Fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel_RegisterFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel_RegisterFormLayout.createSequentialGroup()
-                                .addComponent(jLabel_Phone)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel_RegisterFormLayout.createSequentialGroup()
                                 .addComponent(jLabel_ConfirmPassword)
                                 .addGap(4, 4, 4)
-                                .addComponent(jPasswordField_Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jPasswordField_Confirm, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel_RegisterFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel_RegisterFormLayout.createSequentialGroup()
                                     .addGap(6, 6, 6)
                                     .addComponent(jLabel_Password)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jPasswordField_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jPasswordField_Password, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel_RegisterFormLayout.createSequentialGroup()
                                     .addComponent(jLabel_Username)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -230,13 +236,22 @@ public class Register_Form extends javax.swing.JFrame {
                             .addGroup(jPanel_RegisterFormLayout.createSequentialGroup()
                                 .addComponent(jLabel_Email)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jTextField_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel_RegisterFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_RegisterFormLayout.createSequentialGroup()
+                                    .addComponent(jLabel_Job)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField_Job, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel_RegisterFormLayout.createSequentialGroup()
+                                    .addComponent(jLabel_Phone)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextField_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_RegisterFormLayout.setVerticalGroup(
             jPanel_RegisterFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_RegisterFormLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel_RegisterFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_Fullname)
                     .addComponent(jTextField_Fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -254,6 +269,10 @@ public class Register_Form extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel_ConfirmPassword))
                     .addComponent(jPasswordField_Confirm, javax.swing.GroupLayout.DEFAULT_SIZE, 33, Short.MAX_VALUE))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel_RegisterFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_Job, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_Job))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_RegisterFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_Phone)
@@ -360,39 +379,36 @@ public class Register_Form extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jPasswordField_PasswordActionPerformed
 
-    private void jTextField_PhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_PhoneKeyTyped
-        // TODO add your handling code here:
-        if (!Character.isDigit(evt.getKeyChar())) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_jTextField_PhoneKeyTyped
-
     private void jButton_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RegisterActionPerformed
         // TODO add your handling code here:
         String fname = jTextField_Fullname.getText();
         String uname = jTextField_Username.getText();
-        String phone = jTextField_Phone.getText();
+        String phone = jTextField_Job.getText();
         String pass = String.valueOf(jPasswordField_Password.getPassword());
         String address = jTextField_Address.getText();
         String email = jTextField_Email.getText();
+        String job = jTextField_Job.getText();
 
         if (verifyFields()) {
             if (!checkUsername(uname)) {
                 PreparedStatement ps;
                 ResultSet rs;
                 // Insert query here
-                String registerUserQuery = "Insert into Users(Username,Fullname,Password,Phone,Address,Email) values (?,?,?,?,?,?)";
+                String registerUserQuery = "Insert into Users(Username,Fullname,Password,Job,Phone,Address,Email,Role) values (?,?,?,?,?,?,?,?)";
                 try {
                     ps = MyCNX.getConnection().prepareStatement(registerUserQuery);
                     ps.setString(1, uname);
                     ps.setString(2, fname);
-                    ps.setString(3, phone);
-                    ps.setString(4, pass);
-                    ps.setString(5, address);
-                    ps.setString(6, email);
+                    ps.setString(3, pass);
+                    ps.setString(4, job);
+                    ps.setString(5, phone);
+                    ps.setString(6, address);
+                    ps.setString(7, email);
+                    ps.setString(8, "User");
 
                     if (ps.executeUpdate() != 0) {
                         JOptionPane.showMessageDialog(null, "Your Account Has Been Created");
+                        this.dispose();
                     } else {
                         JOptionPane.showMessageDialog(null, "Error: Check Your Information");
                     }
@@ -402,7 +418,6 @@ public class Register_Form extends javax.swing.JFrame {
 
             }
         }
-
     }//GEN-LAST:event_jButton_RegisterActionPerformed
 
     private void jButton_RegisterMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_RegisterMouseExited
@@ -471,18 +486,23 @@ public class Register_Form extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton_CancelMouseClicked
+
+    private void jTextField_PhoneKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField_PhoneKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_PhoneKeyTyped
     // create a function to check every empty fields
     public boolean verifyFields() {
         String fname = jTextField_Fullname.getText();
         String uname = jTextField_Username.getText();
-        String phone = jTextField_Phone.getText();
+        String phone = jTextField_Job.getText();
         String pass1 = String.valueOf(jPasswordField_Password.getPassword());
         String pass2 = String.valueOf(jPasswordField_Confirm.getPassword());
+        String job = jTextField_Job.getText();
         String address = jTextField_Address.getText();
         String email = jTextField_Email.getText();
 
         if (fname.trim().equals("") || uname.trim().equals("") || phone.trim().equals("")
-                || pass1.trim().equals("") || pass2.trim().equals("")
+                || pass1.trim().equals("") || pass2.trim().equals("")|| job.trim().equals("")
                 || address.trim().equals("") || email.trim().equals("")) {
             JOptionPane.showMessageDialog(null, "One Or More Fields Are Empty", "Empty Fields", 2);
             return false;
@@ -544,10 +564,8 @@ public class Register_Form extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Register_Form().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Register_Form().setVisible(true);
         });
     }
 
@@ -558,6 +576,7 @@ public class Register_Form extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_ConfirmPassword;
     private javax.swing.JLabel jLabel_Email;
     private javax.swing.JLabel jLabel_Fullname;
+    private javax.swing.JLabel jLabel_Job;
     private javax.swing.JLabel jLabel_Password;
     private javax.swing.JLabel jLabel_Phone;
     private javax.swing.JLabel jLabel_RegisterTitle;
@@ -571,6 +590,7 @@ public class Register_Form extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField_Address;
     private javax.swing.JTextField jTextField_Email;
     private javax.swing.JTextField jTextField_Fullname;
+    private javax.swing.JTextField jTextField_Job;
     private javax.swing.JTextField jTextField_Phone;
     private javax.swing.JTextField jTextField_Username;
     // End of variables declaration//GEN-END:variables

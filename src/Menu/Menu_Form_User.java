@@ -13,12 +13,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 public class Menu_Form_User extends javax.swing.JFrame {
-    public String Username;
-    public String Fullname;
-    public String Phone;
-    public String Email;
-    public String Address;
-
+    private Integer UserID;
     /**
      * Creates new form Menu_Form
      */
@@ -26,86 +21,71 @@ public class Menu_Form_User extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void setUsername(String username){
-        Username = jTextField_Username.getText();
+    public void getUserProfileFromDatabase(String username) {
+        //Set Fullname
         jTextField_Username.setText(username);
         jTextField_Username.setEditable(false);
-    }
-
-    public void getUserProfileFromDatabase(String username){
         //Get the Data from each query
         PreparedStatement ps;
         ResultSet rs;
         try {
-            String query_Fullname = "select Fullname from Users where Username =?";
-            String query_Phone = "select Phone from Users where Username =?";
-            String query_Email = "select Fullname from Users where Username =?";
-            String query_Address = "select Fullname from Users where Username =?";
-            ps = MyCNX.getConnection().prepareStatement(query_Fullname);
+            String query = "select * from Users where Username =?";
+            
+            ps = MyCNX.getConnection().prepareStatement(query);
             ps.setString(1, username);
             rs = ps.executeQuery();
-            
-            if(rs.next()){
-                Fullname = rs.getString(1);
-            }
-            
-            ps = MyCNX.getConnection().prepareStatement(query_Phone);
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-            
-            if(rs.next()){
-                Phone = rs.getString(1);
-            }
-            
-            ps = MyCNX.getConnection().prepareStatement(query_Email);
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-            
-            if(rs.next()){
-                Email = rs.getString(1);
-            }
-            
-            ps = MyCNX.getConnection().prepareStatement(query_Address);
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-            
-            if(rs.next()){
-                Address = rs.getString(1);
+
+            if (rs.next()) {
+                String Fullname = rs.getString("Fullname");
+                String Job = rs.getString("Job");
+                String Phone = rs.getString("Phone");
+                String Address = rs.getString("Address");
+                String Email = rs.getString("Email"); 
+                jTextField_Fullname.setText(Fullname);
+                jTextField_Fullname.setEditable(false);
+                jTextField_Job.setText(Job);
+                jTextField_Job.setEditable(false);
+                jTextField_Phone.setText(Phone);
+                jTextField_Phone.setEditable(false);
+                jTextField_Email.setText(Email);
+                jTextField_Email.setEditable(false);
+                jTextField_Address.setText(Address);
+                jTextField_Address.setEditable(false);
+                
+                UserID = rs.getInt("UserID");
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        jTextField_Fullname.setText(Fullname);
-        jTextField_Fullname.setEditable(false);
-        jTextField_Phone.setText(Phone);
-        jTextField_Phone.setEditable(false);
-        jTextField_Email.setText(Email);
-        jTextField_Email.setEditable(false);
-        jTextField_Address.setText(Address);
-        jTextField_Address.setEditable(false);
     }
-    
-    public void getUserSalaryFromDatabase(){
+
+    public void getUserSalaryFromDatabase() {
         PreparedStatement ps;
         ResultSet rs;
         try {
-            String sql = "select * from Salary";
-            ps = MyCNX.getConnection().prepareStatement(sql);
-            rs = ps.executeQuery();
+            jTable_Salary.setModel(new DefaultTableModel(null,new Object[]{"ID", "Date", "Base", "Bonus", "Tax Rate", "Total"}));
+            String sql = "select * from Salary where UserID = ?";
             
-            while(rs.next()){
+            ps = MyCNX.getConnection().prepareStatement(sql);
+            ps.setInt(1, UserID );
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
                 String id = String.valueOf(rs.getInt("SalaryID"));
                 String Date = String.valueOf(rs.getDate("Date"));
                 String Base = String.valueOf(rs.getFloat("Base"));
                 String Bonus = String.valueOf(rs.getFloat("Bonus"));
-                String tbData[] = {id,Date,Base,Bonus};
-                DefaultTableModel tblModel = (DefaultTableModel)jTable_Salary.getModel();
+                String TaxRate = String.valueOf(rs.getFloat("Tax_Rate"));
+                String Total = String.valueOf(rs.getFloat("Total"));
+                Object tbData[] = {id, Date, Base, Bonus, TaxRate, Total};
+                DefaultTableModel tblModel = (DefaultTableModel) jTable_Salary.getModel();
                 tblModel.addRow(tbData);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,26 +95,26 @@ public class Menu_Form_User extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
+        jPanel = new javax.swing.JPanel();
         JPanel_UserProfile = new javax.swing.JPanel();
         jLabel_UserProfile = new javax.swing.JLabel();
         jButton_EditUserProfile = new javax.swing.JButton();
         jPanel_UserInfo = new javax.swing.JPanel();
         jLabel_UserName = new javax.swing.JLabel();
-        jTextField_Username = new javax.swing.JTextField();
         jLabel_Fullname = new javax.swing.JLabel();
-        jTextField_Fullname = new javax.swing.JTextField();
         jLabel_Phone = new javax.swing.JLabel();
-        jTextField_Email = new javax.swing.JTextField();
-        jLabel_Address = new javax.swing.JLabel();
-        jTextField_Address = new javax.swing.JTextField();
-        jLabel_Email = new javax.swing.JLabel();
-        jTextField_Phone = new javax.swing.JTextField();
         jLabel_Job = new javax.swing.JLabel();
+        jLabel_Email = new javax.swing.JLabel();
+        jLabel_Address = new javax.swing.JLabel();
+        jTextField_Username = new javax.swing.JTextField();
+        jTextField_Fullname = new javax.swing.JTextField();
+        jTextField_Phone = new javax.swing.JTextField();
         jTextField_Job = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
+        jTextField_Email = new javax.swing.JTextField();
+        jTextField_Address = new javax.swing.JTextField();
+        jPanel_TaxCalculation = new javax.swing.JPanel();
         jLabel_TaxCalculationTable = new javax.swing.JLabel();
-        jButton_EditUserProfile1 = new javax.swing.JButton();
+        jButton_Refresh = new javax.swing.JButton();
         jButton_Add = new javax.swing.JButton();
         jScrollPane_TaxCalculationTable = new javax.swing.JScrollPane();
         jTable_Salary = new javax.swing.JTable();
@@ -142,7 +122,7 @@ public class Menu_Form_User extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(248, 148, 6));
 
-        jPanel2.setBackground(new java.awt.Color(248, 148, 6));
+        jPanel.setBackground(new java.awt.Color(248, 148, 6));
 
         JPanel_UserProfile.setBackground(new java.awt.Color(248, 148, 6));
 
@@ -151,11 +131,6 @@ public class Menu_Form_User extends javax.swing.JFrame {
         jLabel_UserProfile.setText("User Profile");
 
         jButton_EditUserProfile.setText("Edit");
-        jButton_EditUserProfile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_EditUserProfileActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout JPanel_UserProfileLayout = new javax.swing.GroupLayout(JPanel_UserProfile);
         JPanel_UserProfile.setLayout(JPanel_UserProfileLayout);
@@ -166,7 +141,7 @@ public class Menu_Form_User extends javax.swing.JFrame {
                 .addComponent(jLabel_UserProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(145, 145, 145)
                 .addComponent(jButton_EditUserProfile)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(512, Short.MAX_VALUE))
         );
         JPanel_UserProfileLayout.setVerticalGroup(
             JPanel_UserProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -185,12 +160,6 @@ public class Menu_Form_User extends javax.swing.JFrame {
         jLabel_UserName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_UserName.setText("Username");
 
-        jTextField_Username.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_UsernameActionPerformed(evt);
-            }
-        });
-
         jLabel_Fullname.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Fullname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_Fullname.setText("Full Name");
@@ -198,25 +167,13 @@ public class Menu_Form_User extends javax.swing.JFrame {
         jLabel_Fullname.setMinimumSize(new java.awt.Dimension(53, 16));
         jLabel_Fullname.setPreferredSize(new java.awt.Dimension(53, 16));
 
-        jTextField_Fullname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_FullnameActionPerformed(evt);
-            }
-        });
-
         jLabel_Phone.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Phone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_Phone.setText("Phone");
 
-        jTextField_Email.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_EmailActionPerformed(evt);
-            }
-        });
-
-        jLabel_Address.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_Address.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_Address.setText("Address");
+        jLabel_Job.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_Job.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_Job.setText("Job");
 
         jLabel_Email.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_Email.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -225,9 +182,9 @@ public class Menu_Form_User extends javax.swing.JFrame {
         jLabel_Email.setMinimumSize(new java.awt.Dimension(53, 16));
         jLabel_Email.setPreferredSize(new java.awt.Dimension(53, 16));
 
-        jLabel_Job.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel_Job.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_Job.setText("Job");
+        jLabel_Address.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_Address.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_Address.setText("Address");
 
         javax.swing.GroupLayout jPanel_UserInfoLayout = new javax.swing.GroupLayout(jPanel_UserInfo);
         jPanel_UserInfo.setLayout(jPanel_UserInfoLayout);
@@ -256,7 +213,7 @@ public class Menu_Form_User extends javax.swing.JFrame {
                                     .addGroup(jPanel_UserInfoLayout.createSequentialGroup()
                                         .addComponent(jLabel_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextField_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTextField_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel_UserInfoLayout.createSequentialGroup()
                                         .addComponent(jLabel_Job, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -289,16 +246,16 @@ public class Menu_Form_User extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
-        jPanel3.setBackground(new java.awt.Color(248, 148, 6));
+        jPanel_TaxCalculation.setBackground(new java.awt.Color(248, 148, 6));
 
         jLabel_TaxCalculationTable.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel_TaxCalculationTable.setForeground(new java.awt.Color(255, 255, 255));
         jLabel_TaxCalculationTable.setText("Tax Calculation");
 
-        jButton_EditUserProfile1.setText("Edit");
-        jButton_EditUserProfile1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_EditUserProfile1ActionPerformed(evt);
+        jButton_Refresh.setText("Refresh");
+        jButton_Refresh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_RefreshMouseClicked(evt);
             }
         });
 
@@ -309,29 +266,29 @@ public class Menu_Form_User extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel_TaxCalculationLayout = new javax.swing.GroupLayout(jPanel_TaxCalculation);
+        jPanel_TaxCalculation.setLayout(jPanel_TaxCalculationLayout);
+        jPanel_TaxCalculationLayout.setHorizontalGroup(
+            jPanel_TaxCalculationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_TaxCalculationLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel_TaxCalculationTable, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(98, 98, 98)
-                .addComponent(jButton_EditUserProfile1)
+                .addComponent(jButton_Refresh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Add)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        jPanel_TaxCalculationLayout.setVerticalGroup(
+            jPanel_TaxCalculationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_TaxCalculationLayout.createSequentialGroup()
                 .addComponent(jLabel_TaxCalculationTable, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_TaxCalculationLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel_TaxCalculationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton_EditUserProfile1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -353,33 +310,33 @@ public class Menu_Form_User extends javax.swing.JFrame {
         });
         jScrollPane_TaxCalculationTable.setViewportView(jTable_Salary);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
+        jPanel.setLayout(jPanelLayout);
+        jPanelLayout.setHorizontalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel_TaxCalculation, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane_TaxCalculationTable, javax.swing.GroupLayout.DEFAULT_SIZE, 933, Short.MAX_VALUE)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(JPanel_UserProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel_UserInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanelLayout.setVerticalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLayout.createSequentialGroup()
                 .addComponent(JPanel_UserProfile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel_UserInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel_TaxCalculation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane_TaxCalculationTable, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                 .addContainerGap())
@@ -389,44 +346,29 @@ public class Menu_Form_User extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton_EditUserProfileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EditUserProfileActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_EditUserProfileActionPerformed
-
-    private void jButton_EditUserProfile1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_EditUserProfile1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton_EditUserProfile1ActionPerformed
-
-    private void jTextField_EmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_EmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_EmailActionPerformed
-
-    private void jTextField_FullnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_FullnameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_FullnameActionPerformed
-
-    private void jTextField_UsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_UsernameActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jTextField_UsernameActionPerformed
-
     private void jButton_AddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_AddMouseClicked
         // TODO add your handling code here:
         User_Data_Add add = new User_Data_Add();
+        add.getUserID(UserID);
         add.setVisible(true);
         add.pack();
     }//GEN-LAST:event_jButton_AddMouseClicked
+
+    private void jButton_RefreshMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_RefreshMouseClicked
+        // TODO add your handling code here:
+        getUserSalaryFromDatabase();
+    }//GEN-LAST:event_jButton_RefreshMouseClicked
 
     /**
      * @param args the command line arguments
@@ -457,10 +399,8 @@ public class Menu_Form_User extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Menu_Form_User().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Menu_Form_User().setVisible(true);
         });
     }
 
@@ -468,7 +408,7 @@ public class Menu_Form_User extends javax.swing.JFrame {
     private javax.swing.JPanel JPanel_UserProfile;
     private javax.swing.JButton jButton_Add;
     private javax.swing.JButton jButton_EditUserProfile;
-    private javax.swing.JButton jButton_EditUserProfile1;
+    private javax.swing.JButton jButton_Refresh;
     private javax.swing.JLabel jLabel_Address;
     private javax.swing.JLabel jLabel_Email;
     private javax.swing.JLabel jLabel_Fullname;
@@ -477,8 +417,8 @@ public class Menu_Form_User extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_TaxCalculationTable;
     private javax.swing.JLabel jLabel_UserName;
     private javax.swing.JLabel jLabel_UserProfile;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel;
+    private javax.swing.JPanel jPanel_TaxCalculation;
     private javax.swing.JPanel jPanel_UserInfo;
     private javax.swing.JScrollPane jScrollPane_TaxCalculationTable;
     private javax.swing.JTable jTable_Salary;
