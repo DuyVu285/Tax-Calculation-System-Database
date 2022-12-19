@@ -5,7 +5,12 @@
 package Menu;
 
 import Login.MyCNX;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -119,6 +124,8 @@ public class Menu_Form_User extends javax.swing.JFrame {
         jLabel_TaxCalculationTable = new javax.swing.JLabel();
         jButton_Add = new javax.swing.JButton();
         jButton_Refresh = new javax.swing.JButton();
+        jButton_Delete = new javax.swing.JButton();
+        jButton_Update = new javax.swing.JButton();
         jScrollPane_TaxCalculationTable = new javax.swing.JScrollPane();
         jTable_Salary = new javax.swing.JTable();
 
@@ -285,6 +292,20 @@ public class Menu_Form_User extends javax.swing.JFrame {
             }
         });
 
+        jButton_Delete.setText("Delete");
+        jButton_Delete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_DeleteMouseClicked(evt);
+            }
+        });
+
+        jButton_Update.setText("Update");
+        jButton_Update.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_UpdateMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel_TaxCalculationLayout = new javax.swing.GroupLayout(jPanel_TaxCalculation);
         jPanel_TaxCalculation.setLayout(jPanel_TaxCalculationLayout);
         jPanel_TaxCalculationLayout.setHorizontalGroup(
@@ -296,17 +317,23 @@ public class Menu_Form_User extends javax.swing.JFrame {
                 .addComponent(jButton_Refresh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Add)
-                .addContainerGap(433, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_Delete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_Update)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_TaxCalculationLayout.setVerticalGroup(
             jPanel_TaxCalculationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_TaxCalculationLayout.createSequentialGroup()
                 .addComponent(jLabel_TaxCalculationTable, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_TaxCalculationLayout.createSequentialGroup()
-                .addGroup(jPanel_TaxCalculationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton_Add, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel_TaxCalculationLayout.createSequentialGroup()
+                .addGroup(jPanel_TaxCalculationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -432,6 +459,64 @@ public class Menu_Form_User extends javax.swing.JFrame {
         getUserSalaryFromDatabase();
     }//GEN-LAST:event_jButton_RefreshMouseClicked
 
+    private void jButton_DeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_DeleteMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tblModel = (DefaultTableModel) jTable_Salary.getModel();
+        int getSelectedRowForDeletion = jTable_Salary.getSelectedRow();
+        String deletedRows = jTable_Salary.getModel().getValueAt(getSelectedRowForDeletion, 0).toString();
+
+        if (getSelectedRowForDeletion >= 0) {
+            tblModel.removeRow(getSelectedRowForDeletion);
+            PreparedStatement ps;
+
+            try {
+                String query = "delete from Salary where SalaryID =" + deletedRows;
+
+                ps = MyCNX.getConnection().prepareStatement(query);
+                ps.execute();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton_DeleteMouseClicked
+
+    private void jButton_UpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_UpdateMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tblModel = (DefaultTableModel) jTable_Salary.getModel();
+        if (tblModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Table is Empty");
+        } else {
+            for (int i = 0; i < tblModel.getRowCount(); i++) {
+                Integer salaryId = Integer.valueOf(tblModel.getValueAt(i, 0).toString());
+                String date = tblModel.getValueAt(i, 1).toString();
+                String base = tblModel.getValueAt(i, 2).toString();
+                String bonus = tblModel.getValueAt(i, 3).toString();
+                String taxrate = tblModel.getValueAt(i, 4).toString();
+                String total = tblModel.getValueAt(i, 5).toString();
+                String query = "update Salary "
+                        + "Set Date = ?, Base = ?, Bonus = ?, Tax_Rate = ?, Total = ? "
+                        + "where UserID = ? and SalaryID = ?";
+
+                PreparedStatement ps;
+                try {
+                    ps = MyCNX.getConnection().prepareStatement(query);
+                    ps.setString(1, date);
+                    ps.setString(2, base);
+                    ps.setString(3, bonus);
+                    ps.setString(4, taxrate);
+                    ps.setString(5, total);
+                    ps.setInt(6, UserID);
+                    ps.setInt(7, salaryId);
+                    ps.execute();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Menu_Form_User.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+    }//GEN-LAST:event_jButton_UpdateMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -469,9 +554,11 @@ public class Menu_Form_User extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanel_UserProfile;
     private javax.swing.JButton jButton_Add;
+    private javax.swing.JButton jButton_Delete;
     private javax.swing.JButton jButton_EditUserProfile;
     private javax.swing.JButton jButton_Refresh;
     private javax.swing.JButton jButton_RefreshProfile;
+    private javax.swing.JButton jButton_Update;
     private javax.swing.JLabel jLabel_Address;
     private javax.swing.JLabel jLabel_Email;
     private javax.swing.JLabel jLabel_Fullname;

@@ -40,7 +40,6 @@ public class User_Data_Add extends javax.swing.JFrame {
         String total = jTextField_Total.getText();
 
         PreparedStatement ps;
-        ResultSet rs;
         try {
             String sql = "insert into Salary(UserID,Date,Base,Bonus,Tax_Rate,Total) values (?,?,?,?,?,?)";
 

@@ -8,6 +8,9 @@ import Login.MyCNX;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -66,12 +69,12 @@ public class Menu_Form_Admin extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
+
     public void getUserListFromDatabase() {
         PreparedStatement ps;
         ResultSet rs;
         try {
-            jTable_UserList.setModel(new DefaultTableModel(null, new Object[]{"ID", "Username", "Fullname", "Job", "Phone", "Address","Email"}));
+            jTable_UserList.setModel(new DefaultTableModel(null, new Object[]{"ID", "Username", "Fullname", "Job", "Phone", "Address", "Email"}));
             String sql = "select * from Users where not UserID = ?";
 
             ps = MyCNX.getConnection().prepareStatement(sql);
@@ -126,6 +129,8 @@ public class Menu_Form_Admin extends javax.swing.JFrame {
         jLabel_UserList = new javax.swing.JLabel();
         jButton_Add = new javax.swing.JButton();
         jButton_Refresh = new javax.swing.JButton();
+        jButton_Delete = new javax.swing.JButton();
+        jButton_Update = new javax.swing.JButton();
         jScrollPane_UserListTable = new javax.swing.JScrollPane();
         jTable_UserList = new javax.swing.JTable();
 
@@ -291,6 +296,20 @@ public class Menu_Form_Admin extends javax.swing.JFrame {
             }
         });
 
+        jButton_Delete.setText("Delete");
+        jButton_Delete.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_DeleteMouseClicked(evt);
+            }
+        });
+
+        jButton_Update.setText("Update");
+        jButton_Update.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_UpdateMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel_UserListLayout = new javax.swing.GroupLayout(jPanel_UserList);
         jPanel_UserList.setLayout(jPanel_UserListLayout);
         jPanel_UserListLayout.setHorizontalGroup(
@@ -302,17 +321,23 @@ public class Menu_Form_Admin extends javax.swing.JFrame {
                 .addComponent(jButton_Refresh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Add)
-                .addContainerGap(666, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_Delete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_Update)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel_UserListLayout.setVerticalGroup(
             jPanel_UserListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_UserListLayout.createSequentialGroup()
                 .addComponent(jLabel_UserList, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_UserListLayout.createSequentialGroup()
-                .addGroup(jPanel_UserListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton_Add, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel_UserListLayout.createSequentialGroup()
+                .addGroup(jPanel_UserListLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton_Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Refresh, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Delete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_Update, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -435,6 +460,66 @@ public class Menu_Form_Admin extends javax.swing.JFrame {
         getUserListFromDatabase();
     }//GEN-LAST:event_jButton_RefreshMouseClicked
 
+    private void jButton_DeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_DeleteMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tblModel = (DefaultTableModel) jTable_UserList.getModel();
+        int getSelectedRowForDeletion = jTable_UserList.getSelectedRow();
+        String deletedRows = jTable_UserList.getModel().getValueAt(getSelectedRowForDeletion, 0).toString();
+
+        if (getSelectedRowForDeletion >= 0) {
+            tblModel.removeRow(getSelectedRowForDeletion);
+            PreparedStatement ps;
+
+            try {
+                String query = "delete from Users where UserID =" + deletedRows;
+
+                ps = MyCNX.getConnection().prepareStatement(query);
+                ps.execute();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton_DeleteMouseClicked
+
+    private void jButton_UpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_UpdateMouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel tblModel = (DefaultTableModel) jTable_UserList.getModel();
+        if (tblModel.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Table is Empty");
+        } else {
+            for (int i = 0; i < tblModel.getRowCount(); i++) {
+                Integer userId = Integer.valueOf(tblModel.getValueAt(i, 0).toString());
+                System.out.println(userId);
+                String username = tblModel.getValueAt(i, 1).toString();
+                String fullname = tblModel.getValueAt(i, 2).toString();
+                String job = tblModel.getValueAt(i, 3).toString();
+                String phone = tblModel.getValueAt(i, 4).toString();
+                String address = tblModel.getValueAt(i, 5).toString();
+                String email = tblModel.getValueAt(i, 6).toString();
+
+                String query = "update Users "
+                        + "Set Username = ?, Fullname = ?, Job = ?, Phone = ?, Address = ?, Email = ? "
+                        + "where UserID = ?";
+
+                PreparedStatement ps;
+                try {
+                    ps = MyCNX.getConnection().prepareStatement(query);
+                    ps.setString(1, username);
+                    ps.setString(2, fullname);
+                    ps.setString(3, job);
+                    ps.setString(4, phone);
+                    ps.setString(5, address);
+                    ps.setString(6, email);
+                    ps.setInt(7, userId);
+                    ps.execute();
+                } catch (SQLException ex) {
+                    Logger.getLogger(Menu_Form_User.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton_UpdateMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -474,9 +559,11 @@ public class Menu_Form_Admin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanel_AdminProfile;
     private javax.swing.JButton jButton_Add;
+    private javax.swing.JButton jButton_Delete;
     private javax.swing.JButton jButton_EditAdminProfile;
     private javax.swing.JButton jButton_Refresh;
     private javax.swing.JButton jButton_RefreshProfile;
+    private javax.swing.JButton jButton_Update;
     private javax.swing.JLabel jLabel_Address;
     private javax.swing.JLabel jLabel_AdminProfile;
     private javax.swing.JLabel jLabel_Email;
