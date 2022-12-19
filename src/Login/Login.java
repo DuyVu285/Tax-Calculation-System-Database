@@ -4,6 +4,7 @@ package Login;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+import Menu.Menu_Form_Admin;
 import Menu.Menu_Form_User;
 import java.awt.Color;
 import java.sql.*;
@@ -17,6 +18,7 @@ import javax.swing.border.Border;
  * @author Admin
  */
 public class Login extends javax.swing.JFrame {
+
     /**
      * Creates new form Login
      */
@@ -31,6 +33,7 @@ public class Login extends javax.swing.JFrame {
         jLabel_minimize.setBorder(label_border);
         jLabel_close.setBorder(label_border);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -366,7 +369,8 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         PreparedStatement st;
         ResultSet rs;
-
+        PreparedStatement st1;
+        ResultSet rs1;
         // get the username & password
         String username = jTextField_UserName.getText();
         String password = String.valueOf(jPasswordField.getPassword());
@@ -380,15 +384,39 @@ public class Login extends javax.swing.JFrame {
             rs = st.executeQuery();
 
             if (rs.next()) {
-                //show a new form
-                Menu_Form_User form = new Menu_Form_User();
-                form.setVisible(true);
-                form.pack();
-                form.setLocationRelativeTo(null);
-                form.getUserProfileFromDatabase(username);
-                form.getUserSalaryFromDatabase();
-                // close the current form(login form)
-                this.dispose();
+                try {
+                    String query_userrole = "SELECT Role FROM Users where Username = ? AND Password = ?";
+                    
+                    st1 = MyCNX.getConnection().prepareStatement(query_userrole);
+                    
+                    st1.setString(1, username);
+                    st1.setString(2, password);
+                    rs1 = st1.executeQuery();
+                    if (rs1.next()) {
+                        String role = rs1.getString("Role");
+                        //show a new form
+                        if (role.equals("User")) {
+                            Menu_Form_User form = new Menu_Form_User();
+                            form.setVisible(true);
+                            form.pack();
+                            form.setLocationRelativeTo(null);
+                            form.getUserProfileFromDatabase(username);
+                            form.getUserSalaryFromDatabase();
+                            // close the current form(login form)
+                            this.dispose();
+                        } else {
+                            Menu_Form_Admin form = new Menu_Form_Admin();
+                            form.setVisible(true);
+                            form.pack();
+                            form.setLocationRelativeTo(null);
+                            form.getAdminProfileFromDatabase(username);
+                            form.getUserListFromDatabase();
+                            this.dispose();
+                        }
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             } else {
                 //show error message
                 JOptionPane.showMessageDialog(null, "Invalid Username / Password", "Login Error", 2);

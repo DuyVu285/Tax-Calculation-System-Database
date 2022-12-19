@@ -4,17 +4,56 @@
  */
 package Menu;
 
+import Login.MyCNX;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Admin
  */
 public class Admin_Profile_Edit extends javax.swing.JFrame {
 
+    public Integer UserId;
+
     /**
      * Creates new form User_Profile_Edit
      */
     public Admin_Profile_Edit() {
         initComponents();
+    }
+
+    public void getUsername(Integer id) {
+        UserId = id;
+    }
+
+    public void getDataFromDatabase() {
+        PreparedStatement ps;
+        ResultSet rs;
+        try {
+            String query = "select * from Users where UserID =?";
+
+            ps = MyCNX.getConnection().prepareStatement(query);
+            ps.setInt(1, UserId);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                String Fullname = rs.getString("Fullname");
+                String Job = rs.getString("Job");
+                String Phone = rs.getString("Phone");
+                String Address = rs.getString("Address");
+                String Email = rs.getString("Email");
+                jTextField_Fullname.setText(Fullname);
+                jTextField_Job.setText(Job);
+                jTextField_Phone.setText(Phone);
+                jTextField_Email.setText(Email);
+                jTextField_Address.setText(Address);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -26,21 +65,212 @@ public class Admin_Profile_Edit extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel_AdminEdit = new javax.swing.JPanel();
+        jPanel_AdminProfileHeader = new javax.swing.JPanel();
+        jLabel_AdminProfileEditTitle = new javax.swing.JLabel();
+        jPanel_AdminProfileEditPanel = new javax.swing.JPanel();
+        jLabel_Fullname = new javax.swing.JLabel();
+        jLabel_Phone = new javax.swing.JLabel();
+        jLabel_Job = new javax.swing.JLabel();
+        jLabel_Email = new javax.swing.JLabel();
+        jLabel_Address = new javax.swing.JLabel();
+        jTextField_Fullname = new javax.swing.JTextField();
+        jTextField_Phone = new javax.swing.JTextField();
+        jTextField_Job = new javax.swing.JTextField();
+        jTextField_Email = new javax.swing.JTextField();
+        jTextField_Address = new javax.swing.JTextField();
+        jButton_Edit = new javax.swing.JButton();
+        jButton_Cancel = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(569, 442));
+
+        jPanel_AdminProfileHeader.setBackground(new java.awt.Color(248, 148, 6));
+
+        jLabel_AdminProfileEditTitle.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
+        jLabel_AdminProfileEditTitle.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_AdminProfileEditTitle.setText("Admin Profile Edit");
+
+        javax.swing.GroupLayout jPanel_AdminProfileHeaderLayout = new javax.swing.GroupLayout(jPanel_AdminProfileHeader);
+        jPanel_AdminProfileHeader.setLayout(jPanel_AdminProfileHeaderLayout);
+        jPanel_AdminProfileHeaderLayout.setHorizontalGroup(
+            jPanel_AdminProfileHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_AdminProfileHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel_AdminProfileEditTitle)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel_AdminProfileHeaderLayout.setVerticalGroup(
+            jPanel_AdminProfileHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_AdminProfileHeaderLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel_AdminProfileEditTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        jPanel_AdminProfileEditPanel.setBackground(new java.awt.Color(44, 62, 80));
+
+        jLabel_Fullname.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_Fullname.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_Fullname.setText("Fullname");
+
+        jLabel_Phone.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_Phone.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_Phone.setText("Phone");
+
+        jLabel_Job.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_Job.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_Job.setText("Job");
+
+        jLabel_Email.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_Email.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_Email.setText("Email");
+
+        jLabel_Address.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel_Address.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel_Address.setText("Address");
+
+        jTextField_Phone.setToolTipText("");
+
+        jButton_Edit.setBackground(new java.awt.Color(0, 84, 140));
+        jButton_Edit.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        jButton_Edit.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Edit.setText("Edit");
+        jButton_Edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_EditMouseClicked(evt);
+            }
+        });
+
+        jButton_Cancel.setBackground(new java.awt.Color(0, 84, 140));
+        jButton_Cancel.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
+        jButton_Cancel.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Cancel.setText("Cancel");
+        jButton_Cancel.setToolTipText("");
+        jButton_Cancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton_CancelMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel_AdminProfileEditPanelLayout = new javax.swing.GroupLayout(jPanel_AdminProfileEditPanel);
+        jPanel_AdminProfileEditPanel.setLayout(jPanel_AdminProfileEditPanelLayout);
+        jPanel_AdminProfileEditPanelLayout.setHorizontalGroup(
+            jPanel_AdminProfileEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_AdminProfileEditPanelLayout.createSequentialGroup()
+                .addGap(115, 115, 115)
+                .addGroup(jPanel_AdminProfileEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel_Job, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel_Fullname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel_Phone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel_Email, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel_Address, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_AdminProfileEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTextField_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField_Job, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel_AdminProfileEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jTextField_Fullname)
+                        .addComponent(jTextField_Phone, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
+                    .addComponent(jTextField_Address, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(109, Short.MAX_VALUE))
+            .addGroup(jPanel_AdminProfileEditPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(51, 51, 51)
+                .addComponent(jButton_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(56, 56, 56))
+        );
+        jPanel_AdminProfileEditPanelLayout.setVerticalGroup(
+            jPanel_AdminProfileEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_AdminProfileEditPanelLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel_AdminProfileEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel_AdminProfileEditPanelLayout.createSequentialGroup()
+                        .addGroup(jPanel_AdminProfileEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField_Fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_Fullname, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel_AdminProfileEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField_Phone, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel_Phone))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel_AdminProfileEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField_Job, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                            .addComponent(jLabel_Job, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField_Email, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel_Email))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel_AdminProfileEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField_Address, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel_Address))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addGroup(jPanel_AdminProfileEditPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton_Edit, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46))
+        );
+
+        javax.swing.GroupLayout jPanel_AdminEditLayout = new javax.swing.GroupLayout(jPanel_AdminEdit);
+        jPanel_AdminEdit.setLayout(jPanel_AdminEditLayout);
+        jPanel_AdminEditLayout.setHorizontalGroup(
+            jPanel_AdminEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel_AdminProfileHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_AdminProfileEditPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel_AdminEditLayout.setVerticalGroup(
+            jPanel_AdminEditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_AdminEditLayout.createSequentialGroup()
+                .addComponent(jPanel_AdminProfileHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel_AdminProfileEditPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel_AdminEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel_AdminEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton_EditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_EditMouseClicked
+        // TODO add your handling code here:
+        PreparedStatement ps;
+        try {
+            String query = "update Users "
+                    + "Set Fullname = ?, Job = ?, Phone = ?, Address = ?, Email = ? "
+                    + "where UserID = ?";
+
+            ps = MyCNX.getConnection().prepareStatement(query);
+            ps.setString(1, jTextField_Fullname.getText());
+            ps.setString(2, jTextField_Job.getText());
+            ps.setString(3, jTextField_Phone.getText());
+            ps.setString(4, jTextField_Address.getText());
+            ps.setString(5, jTextField_Email.getText());
+            ps.setInt(6, UserId);
+            if (ps.executeUpdate() != 0) {
+                JOptionPane.showMessageDialog(null, "Your Profile Has Been Updated");
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Error: Check Your Information");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton_EditMouseClicked
+
+    private void jButton_CancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton_CancelMouseClicked
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton_CancelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -69,15 +299,29 @@ public class Admin_Profile_Edit extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
-
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Admin_Profile_Edit().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Admin_Profile_Edit().setVisible(true);
         });
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_Cancel;
+    private javax.swing.JButton jButton_Edit;
+    private javax.swing.JLabel jLabel_Address;
+    private javax.swing.JLabel jLabel_AdminProfileEditTitle;
+    private javax.swing.JLabel jLabel_Email;
+    private javax.swing.JLabel jLabel_Fullname;
+    private javax.swing.JLabel jLabel_Job;
+    private javax.swing.JLabel jLabel_Phone;
+    private javax.swing.JPanel jPanel_AdminEdit;
+    private javax.swing.JPanel jPanel_AdminProfileEditPanel;
+    private javax.swing.JPanel jPanel_AdminProfileHeader;
+    private javax.swing.JTextField jTextField_Address;
+    private javax.swing.JTextField jTextField_Email;
+    private javax.swing.JTextField jTextField_Fullname;
+    private javax.swing.JTextField jTextField_Job;
+    private javax.swing.JTextField jTextField_Phone;
     // End of variables declaration//GEN-END:variables
 }
