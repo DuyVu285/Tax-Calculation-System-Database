@@ -37,11 +37,10 @@ public class User_Data_Add extends javax.swing.JFrame {
         String base = jTextField_Base.getText();
         String bonus = jTextField_Bonus.getText();
         String taxrate = jTextField_TaxRate.getText();
-        String total = jTextField_Total.getText();
 
         PreparedStatement ps;
         try {
-            String sql = "insert into Salary(UserID,Date,Base,Bonus,Tax_Rate,Total) values (?,?,?,?,?,?)";
+            String sql = "insert into Salary(UserID,Date,Base,Bonus,Tax_Rate) values (?,?,?,?,?)";
 
             ps = MyCNX.getConnection().prepareStatement(sql);
             ps.setInt(1, UserID);
@@ -49,7 +48,6 @@ public class User_Data_Add extends javax.swing.JFrame {
             ps.setString(3, base);
             ps.setString(4, bonus);
             ps.setString(5, taxrate);
-            ps.setString(6, total);            
             if (ps.executeUpdate() != 0) {
                 JOptionPane.showMessageDialog(null, "Your Data Has Been Added");
                 this.dispose();
@@ -75,7 +73,6 @@ public class User_Data_Add extends javax.swing.JFrame {
             if (rs.next()) {
                 String taxRate = rs.getString("Tax_Rate");
                 jTextField_TaxRate.setText(taxRate);
-                jTextField_TaxRate.setEditable(false);
             }
         } catch (SQLException e) {
             e.printStackTrace();

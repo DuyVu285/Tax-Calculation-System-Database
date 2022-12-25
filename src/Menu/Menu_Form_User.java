@@ -495,7 +495,7 @@ public class Menu_Form_User extends javax.swing.JFrame {
                 String taxrate = tblModel.getValueAt(i, 4).toString();
                 String total = tblModel.getValueAt(i, 5).toString();
                 String query = "update Salary "
-                        + "Set Date = ?, Base = ?, Bonus = ?, Tax_Rate = ?, Total = ? "
+                        + "Set Date = ?, Base = ?, Bonus = ?, Tax_Rate = ? "
                         + "where UserID = ? and SalaryID = ?";
 
                 PreparedStatement ps;
@@ -505,9 +505,8 @@ public class Menu_Form_User extends javax.swing.JFrame {
                     ps.setString(2, base);
                     ps.setString(3, bonus);
                     ps.setString(4, taxrate);
-                    ps.setString(5, total);
-                    ps.setInt(6, UserID);
-                    ps.setInt(7, salaryId);
+                    ps.setInt(5, UserID);
+                    ps.setInt(6, salaryId);
                     ps.execute();
                 } catch (SQLException ex) {
                     Logger.getLogger(Menu_Form_User.class.getName()).log(Level.SEVERE, null, ex);

@@ -169,7 +169,7 @@ public class Menu_Form_Admin extends javax.swing.JFrame {
                 .addComponent(jButton_RefreshProfile)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_EditAdminProfile)
-                .addContainerGap(666, Short.MAX_VALUE))
+                .addContainerGap(503, Short.MAX_VALUE))
         );
         JPanel_AdminProfileLayout.setVerticalGroup(
             JPanel_AdminProfileLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -369,7 +369,7 @@ public class Menu_Form_Admin extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel_UserList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane_UserListTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1166, Short.MAX_VALUE)))
+                            .addComponent(jScrollPane_UserListTable, javax.swing.GroupLayout.DEFAULT_SIZE, 1003, Short.MAX_VALUE)))
                     .addGroup(jPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(JPanel_AdminProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -387,7 +387,7 @@ public class Menu_Form_Admin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel_UserList, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane_UserListTable, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+                .addComponent(jScrollPane_UserListTable, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
